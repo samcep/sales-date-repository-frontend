@@ -1,0 +1,44 @@
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #sidenav mode="push" [ngStyle]="{ width: '250px' }">
+    <mat-toolbar>
+      <span>Menú</span>
+      <span class="example-spacer"></span>
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <mat-nav-list>
+      <mat-list-item
+        *ngFor="let item of sidebarItems"
+        [routerLink]="item.url"
+        (click)="sidenav.toggle()"
+      >
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        {{ item.label }}
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-toolbar class="dark-toolbar">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon class="white-icon">menu</mat-icon>
+    </button>
+
+    <span class="toolbar-title">Sales Date Prediction App</span>
+
+    <span class="example-spacer"></span>
+
+    <img
+      src="https://www.relativity.com/sites/relativity/cache/file/8A7A1F93-542F-41B8-BE0C5483829AD272_partnerlogolarge.png"
+      alt="Logo"
+      class="logo"
+    />
+  </mat-toolbar>
+
+  <div class="flex align-items-center justify-content-center" style="height: calc(100vh - 64px);">
+    <mat-card class="w-11 md:w-10 lg:w-9 xl:w-8" style="height: 80vh;">
+      <router-outlet></router-outlet>
+    </mat-card>
+  </div>
+</mat-sidenav-container>

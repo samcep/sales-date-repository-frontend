@@ -1,0 +1,14 @@
+<div class="flex align-items-center justify-content-between gap-3 mb-3 flex-wrap">
+  <label class="text-lg font-medium text-color pl-4">Source Data</label>
+  <mat-form-field appearance="fill" class="w-full sm:w-30rem">
+    <mat-label>Enter Data</mat-label>
+    <mat-icon matPrefix>bar_chart</mat-icon>
+    <input matInput placeholder="Comma-separated" [(ngModel)]="inputData" />
+  </mat-form-field>
+  <button mat-flat-button color="primary" (click)="renderData()">
+    Update Data
+  </button>
+  <div class="chart p-mt-4" #chart></div>
+</div>
+
+

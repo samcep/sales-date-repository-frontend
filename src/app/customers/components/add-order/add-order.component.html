@@ -1,0 +1,165 @@
+<mat-dialog-content>
+  <div>
+    <mat-toolbar style="background-color: #4c9950; color: white;" class="dialog-toolbar">
+      <span>{{ data.customerName }} - New Order</span>
+    </mat-toolbar>
+
+    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+      <h2 class="font-bold mb-3">Order</h2>
+
+      <div class="grid">
+        <div class="col-12 md:col-6">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Employee</mat-label>
+            <mat-select formControlName="empid">
+              <mat-option *ngFor="let emp of employees" [value]="emp.empid">
+                {{ emp.nameEmployee }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="orderForm.invalid">{{ verifyData('empid') }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 md:col-6">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Shipper</mat-label>
+            <mat-select formControlName="shipperid">
+              <mat-option *ngFor="let ship of shippers" [value]="ship.shipperid">
+                {{ ship.companyname }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="orderForm.invalid">{{ verifyData('shipperid') }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="col-12">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Ship Name</mat-label>
+            <input matInput formControlName="shipname" required />
+            <mat-error *ngIf="orderForm.invalid">{{ verifyData('shipname') }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Ship Address</mat-label>
+            <input matInput formControlName="shipaddress" />
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 md:col-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Ship City</mat-label>
+            <input matInput formControlName="shipcity" />
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 md:col-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Ship Country</mat-label>
+            <input matInput formControlName="shipcountry" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Order Date</mat-label>
+            <input matInput [matDatepicker]="orderPicker" formControlName="orderdate" />
+            <mat-datepicker-toggle matSuffix [for]="orderPicker"></mat-datepicker-toggle>
+            <mat-datepicker #orderPicker></mat-datepicker>
+            <mat-error *ngIf="orderForm.invalid">{{ verifyData('orderdate') }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 md:col-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Required Date</mat-label>
+            <input matInput [matDatepicker]="requiredPicker" formControlName="requireddate" />
+            <mat-datepicker-toggle matSuffix [for]="requiredPicker"></mat-datepicker-toggle>
+            <mat-datepicker #requiredPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 md:col-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Shipped Date</mat-label>
+            <input matInput [matDatepicker]="shippedPicker" formControlName="shippeddate" />
+            <mat-datepicker-toggle matSuffix [for]="shippedPicker"></mat-datepicker-toggle>
+            <mat-datepicker #shippedPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="col-12">
+          <mat-form-field appearance="fill" class="w-full">
+            <span matPrefix>$</span>
+            <mat-label>Freight</mat-label>
+            <input matInput type="number" formControlName="freight" />
+            <mat-error *ngIf="orderForm.invalid">{{ verifyData('freight') }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <h2 class="font-bold mt-4 mb-3">Order Details</h2>
+
+      <div class="grid">
+        <div class="col-12">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Product</mat-label>
+            <mat-select formControlName="productid">
+              <mat-option *ngFor="let product of products" [value]="product.productid">
+                {{ product.productName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <span matPrefix>$</span>
+            <mat-label>Unit Price</mat-label>
+            <input type="number" matInput formControlName="unitprice" />
+            <mat-error *ngIf="orderForm.invalid">{{ verifyData('unitprice') }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 md:col-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Quantity</mat-label>
+            <input type="number" matInput formControlName="qty" />
+            <mat-error *ngIf="orderForm.invalid">{{ verifyData('qty') }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 md:col-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Discount</mat-label>
+            <input type="number" matInput formControlName="discount" />
+            <mat-error *ngIf="orderForm.invalid">Descuento debe ser entre 0.0 y 1</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="flex justify-content-end mt-3">
+        <button mat-button mat-dialog-close style="color: rgb(8, 141, 19)">CLOSE</button>
+        <button
+          mat-button
+          type="submit"
+          [ngStyle]="orderForm.invalid ? {} : { color: 'rgb(8, 141, 19)' }"
+          [disabled]="orderForm.invalid"
+        >
+          SAVE
+        </button>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>

@@ -13,6 +13,19 @@ Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-
 1. Clonar el repositorio.
 2. Ejecutar `npm install` para instalar las dependencias.
 
+
+## Configuración del entorno
+
+Las URLs base para las peticiones HTTP están definidas en los archivos de entorno ubicados en `src/environments/`:
+
+- `environment.ts` (desarrollo)
+
+Ejemplo de configuración en `environment.ts`:
+```typescript
+export const environment = {
+  baseUrl: 'https://localhost:7239/api' //cambiar en caso de ser necesario
+};
+```
 ## Levantar el servidor de desarrollo
 
 Ejecutar:
